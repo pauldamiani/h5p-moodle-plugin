@@ -433,6 +433,15 @@ function hvp_upgrade_2018090300() {
     }
 }
 
+function hvp_upgrade_2018101900() {
+    global $DB;
+    $dbman = $DB->get_manager();
+    $table = new xmldb_table('hvp_libraries');
+
+    if ($dbman->field_exists($table, 'metadata')) {
+        $dbman->rename_field($table, 'metadata', 'metadata_settings');
+    }
+}
 
 /**
  * Adds authentication table
@@ -500,6 +509,7 @@ function xmldb_hvp_upgrade($oldversion) {
         2017050900,
         2017060900,
         2018090300,
+        2018101900,
         2019022600,
         2019030700
     ];
